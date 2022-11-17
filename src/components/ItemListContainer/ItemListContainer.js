@@ -1,13 +1,34 @@
-import React from 'react'
-import './ItemListContainer.css'
+import { useState, useEffect } from 'react'
+import {data} from '../../data/data';
+import ItemList from '../ItemList/ItemList';
+import { useParams } from 'react-router-dom';
 
-const ItemListContainer = (props) => {
-    console.log(props)
+const ItemListContainer = () => {
+  
+  const [items, setItems] = useState ([]);
+  const { categoryName } = useParams();
+  
+  
+  const getProducts = new Promise ((res, rej) => {
+    setTimeout(() => {
+      if(categoryName) {
+        const filteredData = data.filter((producto) => {
+          return producto.category === categoryName;
+        });
+      res(filteredData);
+    } else {
+      res(data);
+    }
+  }, 1000);
+  });
+  useEffect (() => {
+    getProducts.then((res) => setItems(res));
+  }, [categoryName])
   return (
-    <div className='message-greting-container'>
-        <h2 className='message_title'>{props.name}</h2>
+    <div>
+      <ItemList products={items} />
     </div>
-  )
-}
+  );
+};
 
-export default ItemListContainer
+export default ItemListContainer;
