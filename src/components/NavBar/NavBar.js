@@ -7,7 +7,10 @@ import CartWidget from '../CartWidget/CartWidget'
 const NavBar = () => {
   return (
     <div className='menu-navbar-container'>
-        <h1 className='menu-title'> Shop Online</h1>
+        <NavLink to="/" >
+            <h1 className='menu-title'>Shop Online</h1>
+        </NavLink>
+        
         <ul className='menu-items'>
             <li>
                 <NavLink to="/" className='menu-list'>
